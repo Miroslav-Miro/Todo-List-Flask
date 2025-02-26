@@ -1,11 +1,22 @@
-from flask import Flask, request, jsonify 
-import db # Import the db module
+from flask import Flask, request, jsonify , send_from_directory
+import db
+import os
 
-app = Flask(__name__)
+
+app = Flask(__name__, static_folder=os.path.join(os.getcwd(), '..', 'frontend'))
+
 @app.route('/')
-
 def index():
-    return 'Hello, World!'
+    index_path = os.path.join(os.getcwd(), '..', 'frontend', 'index.html')  
+    print(f"Resolved index.html path: {index_path}")
+    return send_from_directory(os.path.join(os.getcwd(), '..', 'frontend'), 'index.html')
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    file_path = os.path.join(os.getcwd(), '..', 'frontend', filename)  
+    print(f"Resolved file path: {file_path}")
+    return send_from_directory(os.path.join(os.getcwd(), '..', 'frontend'), filename)
+
 
 @app.route('/add', methods=['POST'])
 def add_task():
