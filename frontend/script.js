@@ -25,21 +25,31 @@ async function fetchTasks() {
             const li = document.createElement("li");
             li.textContent = task[1]; 
             if (task[2] === 1) li.classList.add("completed");
-
+        
+            
+            const buttonContainer = document.createElement("div");
+            buttonContainer.classList.add("task-icons"); 
+        
+            
             const completeBtn = document.createElement("button");
-            completeBtn.textContent = "Complete";
-            completeBtn.onclick = () => completeTask(task[0]);
-
+            completeBtn.textContent = task[2] === 1 ? "Undo" : "✔"; 
+            completeBtn.onclick = () => toggleTaskCompletion(task[0], task[2]);
+        
             const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "Delete";
+            deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
             deleteBtn.onclick = () => deleteTask(task[0]);
-
-            li.appendChild(completeBtn);
-            li.appendChild(deleteBtn);
+        
+            
+            buttonContainer.appendChild(completeBtn);
+            buttonContainer.appendChild(deleteBtn);
+    
+        
+            li.appendChild(buttonContainer);
+        
             taskList.appendChild(li);
-
-
         });
+        
+
     } catch (error) {
         console.error('Error fetching tasks:', error);
     }finally {
@@ -64,11 +74,22 @@ async function addTask() {
     fetchTasks();
 }
 
-// Complete task
-async function completeTask(id) {
-    await fetch(`${apiUrl}/update/${id}`, { method: "PUT" });
+// Complete or undo task completion
+async function toggleTaskCompletion(id, currentStatus) {
+    const newStatus = currentStatus === 1 ? 0 : 1; 
+
+    // Check if the task is complete or not
+    const url = newStatus === 1 ? `${apiUrl}/update/${id}` : `${apiUrl}/undo/${id}`;
+
+    await fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+    });
+
     fetchTasks();
 }
+
+
 
 // Delete task
 async function deleteTask(id) {

@@ -17,6 +17,16 @@ def serve_static(filename):
     print(f"Resolved file path: {file_path}")
     return send_from_directory(os.path.join(os.getcwd(), '..', 'frontend'), filename)
 
+@app.route('/undo/<int:id>', methods=['PUT'])
+def undo_task(id):
+    task = db.get_task_by_id(id)
+    if task is None:
+        return jsonify({'message': 'Task not found!'}), 404
+
+    # Undo task completion (set completed to 0)
+    db.undo_task(id)
+    return jsonify({'message': f'Task {id} marked as incomplete!'}), 200
+
 
 @app.route('/add', methods=['POST'])
 def add_task():

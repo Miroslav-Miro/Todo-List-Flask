@@ -1,21 +1,68 @@
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #2c3e50, #1c1c1c);
+  color: white;
   text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
 }
 
 .container {
-  max-width: 400px;
-  margin: auto;
-  background: white;
+  width: 400px;
   padding: 20px;
-  box-shadow: 0px 0px 10px 0px gray;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.task-input {
+  display: flex;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  padding: 10px;
+}
+
+input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px;
+  color: white;
+  font-size: 16px;
+  outline: none;
 }
 
 button {
-  margin: 5px;
-  padding: 5px 10px;
+  background: #f39c12;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
   cursor: pointer;
+  font-weight: bold;
+}
+
+/* Списък със задачи */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .completed {
@@ -23,32 +70,7 @@ button {
   color: gray;
 }
 
-#loading {
-  font-size: 18px;
-  text-align: center;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5); /* Fixed missing parenthesis */
-  color: white;
-  position: fixed; /* Fixed position */
-  top: 50%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Adjust position */
-  z-index: 9999; /* Ensure it appears on top */
-  display: none; /* Initially hidden */
+.task-icons {
+  display: flex;
+  gap: 10px;
 }
-
-#loading:before {
-  content: "";
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #3498db;
-  border-radius: 50%;
-  width: 40px; /* Adjust spinner size */
-  height: 40px;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
