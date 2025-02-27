@@ -29,5 +29,3 @@ A simple web-based To-Do List that allows users to add, delete, and mark tasks a
    python backend/app.py
    ```
 4. Open `frontend/index.html` in your browser.  
-
-This will give your GitHub repository a professional look. Ready to start coding? 🚀
